@@ -7,7 +7,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../data/app_color.dart';
 import '../../data/app_image.dart';
 import '../../data/config/app_size.dart';
-import '../widget/custom_button.dart';
 import '../widget/outline_text_field.dart';
 import '../widget/rounded_button.dart';
 
