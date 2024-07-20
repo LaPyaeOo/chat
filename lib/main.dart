@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'data/firebase_options.dart';
 import 'presentation/page/Messaging_page.dart';
 import 'presentation/page/login_page.dart';
+import 'presentation/page/main_page.dart';
 import 'presentation/page/signup_page.dart';
 import 'presentation/page/initial_page.dart';
 import 'presentation/page/splash_page.dart';
@@ -37,7 +38,8 @@ class ChatterApp extends StatelessWidget {
         '/initialPage': (context) => const InitialPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => SignupPage(),
-        '/chat': (context) => const MessagingPage(),
+        '/mainPage': (context)=> const MainPage(),
+        '/messagingPage': (context) => const MessagingPage(),
         // '/chats':(context)=>ChatterScreen()
       },
     );

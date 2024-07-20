@@ -12,6 +12,7 @@ const largeIconSize = 48.0;
 const xLargeIconSize = 68.0;
 const double tinyRadius = 4.0;
 const double smallRadius = 8.0;
+const double normalRadius = 15.0;
 
 const double globalHorizontalMargin = 12;
 

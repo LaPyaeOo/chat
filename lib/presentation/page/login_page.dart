@@ -108,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             loggingin = false;
                           });
-                          Navigator.pushNamed(context, '/chat');
+                          // Navigator.pushNamed(context, '/messagingPage');
+                          Navigator.pushNamed(context, '/mainPage');
                         } catch (e) {
                           setState(() {
                             loggingin = false;
