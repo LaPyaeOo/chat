@@ -2,6 +2,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../data/app_color.dart';
+import '../../data/config/app_size.dart';
 import '../../data/constant.dart';
 import '../../data/global_information.dart';
 
@@ -47,7 +49,10 @@ class _MessagingPageState extends State<MessagingPage> {
       //     gravity: EdgeAlert.BOTTOM,
       //     icon: Icons.error,
       //     backgroundColor: Colors.deepPurple[900]);
-      Fluttertoast.showToast(msg: 'Something Went Wrong',gravity: ToastGravity.BOTTOM,);
+      Fluttertoast.showToast(
+        msg: 'Something Went Wrong',
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
@@ -67,30 +72,64 @@ class _MessagingPageState extends State<MessagingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.deepPurple),
-        elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: Size(25, 10),
-          child: Container(
-            child: LinearProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              backgroundColor: Colors.blue[100],
-            ),
-            decoration: BoxDecoration(
-                // color: Colors.blue,
-
-                // borderRadius: BorderRadius.circular(20)
-                ),
-            constraints: BoxConstraints.expand(height: 1),
-          ),
-        ),
-        backgroundColor: Colors.white10,
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(left: 20,top: 50),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CircleAvatar(
+                      child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Center(child: Icon(Icons.account_circle))),
+                    ),
+                    smallHorizontalSpace,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Good Morning',
+                          style: TextStyle(
+                            color: AppColor.textHighlightPrimary,
+                            fontSize: 16,
+                            fontFamily: 'Ranade',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          GlobalInformation.loginName,
+                          style: TextStyle(
+                            color: AppColor.foregroundSubdued,
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Container(
+                  child: LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    backgroundColor: Colors.blue[100],
+                  ),
+                  decoration: BoxDecoration(
+                      // color: Colors.blue,
+
+                      // borderRadius: BorderRadius.circular(20)
+                      ),
+                  constraints: BoxConstraints.expand(height: 1),
+                ),
+              ],
+            ),
+          ),
           const ChatStream(),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -118,7 +157,7 @@ class _MessagingPageState extends State<MessagingPage> {
                 ),
                 MaterialButton(
                     shape: CircleBorder(),
-                    color: Colors.blue,
+                    color: AppColor.highlightPrimary,
                     onPressed: () {
                       chatMsgTextController.clear();
                       _firestore.collection('messages').add({
@@ -157,13 +196,11 @@ class ChatStream extends StatelessWidget {
     return StreamBuilder(
       stream:
           _firestore.collection('messages').orderBy('timestamp').snapshots(),
-      builder: (context,AsyncSnapshot snapshot) {
+      builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           final messages = snapshot.data!.docs.reversed;
           List<MessageBubble> messageWidgets = [];
           for (var message in messages) {
-            print('SNAPSNAP --- ${message['text']}');
-            //TODO chang
             final msgText = message['text'];
             final msgSender = message['sender'];
             ///////
@@ -185,9 +222,10 @@ class ChatStream extends StatelessWidget {
             ),
           );
         } else {
-          return const Center(
-            child:
-                CircularProgressIndicator(backgroundColor: Colors.deepPurple),
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: AppColor.backgroundRegular,
+            ),
           );
         }
       },
@@ -226,7 +264,7 @@ class MessageBubble extends StatelessWidget {
               bottomRight: Radius.circular(50),
               topRight: user ? Radius.circular(0) : Radius.circular(50),
             ),
-            color: user ? Colors.blue : Colors.white,
+            color: user ? AppColor.highlightPrimary : Colors.white,
             elevation: 5,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
