@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/constant.dart';
+import '../../data/global_information.dart';
 
 final _firestore = FirebaseFirestore.instance;
 String username = 'User';
@@ -35,8 +36,8 @@ class _MessagingPageState extends State<MessagingPage> {
       if (user != null) {
         loggedInUser = user;
         setState(() {
-          username = loggedInUser!.displayName!;
-          email = loggedInUser!.email!;
+          GlobalInformation.loginName = username = loggedInUser!.displayName!;
+          GlobalInformation.loginMail = email = loggedInUser!.email!;
         });
       }
     } catch (e) {
@@ -85,54 +86,6 @@ class _MessagingPageState extends State<MessagingPage> {
           ),
         ),
         backgroundColor: Colors.white10,
-        title: Row(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Chat',
-                  style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 16,
-                      color: Colors.deepPurple),
-                ),
-              ],
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          GestureDetector(
-            child: Icon(Icons.more_vert),
-          )
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple[900],
-              ),
-              accountName: Text(username),
-              accountEmail: Text(email),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://cdn.clipart.email/93ce84c4f719bd9a234fb92ab331bec4_frisco-specialty-clinic-vail-health_480-480.png"),
-              ),
-              onDetailsPressed: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text("Logout"),
-              subtitle: Text("Sign out of this account"),
-              onTap: () async {
-                await _auth.signOut();
-                Navigator.pushReplacementNamed(context, '/');
-              },
-            ),
-          ],
-        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
