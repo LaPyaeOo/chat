@@ -1,3 +1,4 @@
+import 'package:chat/presentation/page/chat_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class ChatterApp extends StatelessWidget {
         '/signup': (context) => SignupPage(),
         '/mainPage': (context)=> const MainPage(),
         '/messagingPage': (context) => const MessagingPage(),
-        // '/chats':(context)=>ChatterScreen()
+        '/chat':(context)=>ChatPage()
       },
     );
   }
